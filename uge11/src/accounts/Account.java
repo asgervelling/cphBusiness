@@ -1,8 +1,6 @@
 package accounts;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,7 +26,7 @@ public class Account {
     private void init(String initString) {
         String[] args = initString.split(",");
         setTransactionDate(args[0]);
-        /*
+
         setProduct(args[1]);
         setPrice(args[2]);
         setPaymentType(args[3]);
@@ -41,18 +39,17 @@ public class Account {
         setLastLogin(args[10]);
         setLatitude(args[11]);
         setLongitude(args[12]);
-         */
     }
 
-    private void setTransactionDate(String dateStr) {
-        // 1/5/09 11:37
+    private boolean isDateTime(String dateStr) {
         Pattern p = Pattern.compile("([0-9]{1,2})\\/([0-9]{1,2})\\/([0-9]{1,2}) ([0-9]{1,2}):([0-9]{1,2})");
         Matcher m = p.matcher(dateStr.trim());
-        boolean matchFound = m.find();
-        if (matchFound) {
-            System.out.println("Found");
+        return m.find();
+    }
 
-            String[] dateAndTime = dateStr.trim().split(" ");
+    private LocalDateTime createLocaltDateTime(String s) {
+        if (isDateTime(s)) {
+            String[] dateAndTime = s.trim().split(" ");
             String date = dateAndTime[0];
             String time = dateAndTime[1];
 
@@ -65,35 +62,83 @@ public class Account {
             int hour = Integer.parseInt(timeParts[0]);
             int minute = Integer.parseInt(timeParts[1]);
 
-            this.transactionDate = LocalDateTime.of(year, month, day, hour, minute);
-
-
-        } else {
-            System.out.println("Not found");
+            return LocalDateTime.of(year, month, day, hour, minute);
         }
+        return null;
+    }
 
+    private void setTransactionDate(String dateStr) {
+        this.transactionDate = createLocaltDateTime(dateStr);
+    }
+
+    private void setProduct(String productStr) {
+        this.product = productStr.trim();
+    }
+
+    private void setPrice(String priceStr) {
+        this.price = Double.parseDouble(priceStr.trim());
+    }
+
+    private void setPaymentType(String paymentTypeStr) {
+        this.paymentType = paymentTypeStr.trim();
+    }
+
+    private void setCardNumber(String cardNumberStr) {
+        this.cardNumber = Long.parseLong(cardNumberStr.trim());
+    }
+
+    private void setName(String name) {
+        this.name = name.trim();
+    }
+
+    private void setCity(String city) {
+        this.city = city.trim();
+    }
+
+    private void setState(String state) {
+        this.state = state.trim();
+    }
+
+    private void setCountry(String country) {
+        this.country = country.trim();
+    }
+
+    private void setAccountCreated(String dateStr) {
+        this.accountCreated = createLocaltDateTime(dateStr);
+    }
+
+    private void setLastLogin(String dateStr) {
+        this.lastLogin = createLocaltDateTime(dateStr);
+    }
+
+    private void setLatitude(String latStr) {
+        this.latitude = Double.parseDouble(latStr.trim());
+    }
+
+    private void setLongitude(String longStr) {
+        this.longitude = Double.parseDouble(longStr.trim());
     }
 
     @Override
     public String toString() {
-        return "\nAccount{" +
-                "\ntransactionDate=" + toDateString(transactionDate) +
-                ", \nproduct='" + product + '\'' +
-                ", \nprice=" + price +
-                ", \npaymentType='" + paymentType + '\'' +
-                ", \ncardNumber=" + cardNumber +
-                ", \nname='" + name + '\'' +
-                ", \ncity='" + city + '\'' +
-                ", \nstate='" + state + '\'' +
-                ", \ncountry='" + country + '\'' +
-                ", \naccountCreated=" + toDateString(accountCreated) +
-                ", \nlastLogin=" + toDateString(lastLogin) +
-                ", \nlatitude=" + latitude +
-                ", \nlongitude=" + longitude +
-                "}\n";
+        return name + "\n{" +
+                "\ntransactionDate:\t" + toDateString(transactionDate) +
+                ", \nproduct:\t\t\t" + product +
+                ", \nprice:\t\t\t\t" + price +
+                ", \npaymentType:\t\t" + paymentType +
+                ", \ncardNumber:\t\t\t" + cardNumber +
+                ", \nname:\t\t\t\t" + name +
+                ", \ncity:\t\t\t\t" + city +
+                ", \nstate:\t\t\t\t" + state +
+                ", \ncountry:\t\t\t" + country +
+                ", \naccountCreated:\t\t" + toDateString(accountCreated) +
+                ", \nlastLogin:\t\t\t" + toDateString(lastLogin) +
+                ", \nlatitude:\t\t\t" + latitude +
+                ", \nlongitude:\t\t\t" + longitude +
+                "\n}\n";
     }
 
-    public String toDateString(LocalDateTime dateTime) {
+    private String toDateString(LocalDateTime dateTime) {
         if (dateTime == null) {
             return null;
         }
@@ -104,12 +149,11 @@ public class Account {
                 withZero(dateTime.getMinute()));
     }
 
-    public String withZero(int x) {
+    private String withZero(int x) {
         if (x < 10 && x > -10) {
             return String.format("0%d", x);
         }
         return String.valueOf(x);
     }
-
 
 }
