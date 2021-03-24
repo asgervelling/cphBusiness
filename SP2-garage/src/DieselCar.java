@@ -1,8 +1,8 @@
 public class DieselCar extends Car {
     // Dieselbil. Denne klasse nedarver fra Bil og har desuden attributterne harPartikelfilter og kmPrL.
 
-    private boolean hasParticulateFilter;
-    private double kmPrLiter;
+    private final boolean hasParticulateFilter;
+    private final double kmPrLiter;
 
     public DieselCar(String registrationNumber, String brand, String model, int year, int numDoors,
                      boolean hasParticulateFilter, double kmPrLiter) {
@@ -43,21 +43,5 @@ public class DieselCar extends Car {
                 "%s" +
                 "Has particulate filter:\t%s\n" +
                 "km/l:\t\t\t\t\t%.2f", super.toString(), (hasParticulateFilter ? "Yes" : "No"), kmPrLiter);
-    }
-
-    public boolean hasParticulateFilter() {
-        return hasParticulateFilter;
-    }
-
-    public void setHasParticulateFilter(boolean hasParticulateFilter) {
-        this.hasParticulateFilter = hasParticulateFilter;
-    }
-
-    public double getKmPrLiter() {
-        return kmPrLiter;
-    }
-
-    public void setKmPrLiter(double kmPrLiter) {
-        this.kmPrLiter = kmPrLiter;
     }
 }

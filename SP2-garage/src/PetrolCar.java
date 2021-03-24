@@ -1,8 +1,8 @@
 public class PetrolCar extends Car {
     // Benzinbil. Denne klasse nedarver fra Bil og har desuden attributterne oktantal og kmPrL
 
-    private double octaneRating;
-    private double kmPrLiter;
+    private final double octaneRating;
+    private final double kmPrLiter;
 
     public PetrolCar(String registrationNumber, String brand, String model, int year, int numDoors,
                      double octaneRating, double kmPrLiter) {
@@ -26,21 +26,5 @@ public class PetrolCar extends Car {
                 "%s" +
                 "Octane rating:\t\t\t%.2f\n" +
                 "km/l:\t\t\t\t\t%.2f", super.toString(), octaneRating, kmPrLiter);
-    }
-
-    public double getOctaneRating() {
-        return octaneRating;
-    }
-
-    public void setOctaneRating(double octaneRating) {
-        this.octaneRating = octaneRating;
-    }
-
-    public double getKmPrLiter() {
-        return kmPrLiter;
-    }
-
-    public void setKmPrLiter(double kmPrLiter) {
-        this.kmPrLiter = kmPrLiter;
     }
 }

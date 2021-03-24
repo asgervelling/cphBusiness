@@ -1,9 +1,9 @@
 public class ElectricCar extends Car {
     // Elbil. Denne klasse nedarver fra Bil og har desuden attributterne batterikapacitetKWh, maxKm og whPrKm.
 
-    private double batteryCapacityKWh;
-    private double maxKm;
-    private double whPerKm;
+    private final double batteryCapacityKWh;
+    private final double maxKm;
+    private final double whPerKm;
 
     public ElectricCar(String registrationNumber, String brand, String model, int year, int numDoors,
                        double batteryCapacityKWh, double maxKm, double whPerKm) {
@@ -30,29 +30,5 @@ public class ElectricCar extends Car {
                 "Battery capacity:\t\t%.2f kWh\n" +
                 "Max km:\t\t\t\t\t%.2f\n" +
                 "wH/km:\t\t\t\t\t%s", super.toString(), batteryCapacityKWh, maxKm, whPerKm);
-    }
-
-    public double getBatteryCapacityKWh() {
-        return batteryCapacityKWh;
-    }
-
-    public void setBatteryCapacityKWh(double batteryCapacityKWh) {
-        this.batteryCapacityKWh = batteryCapacityKWh;
-    }
-
-    public double getMaxKm() {
-        return maxKm;
-    }
-
-    public void setMaxKm(double maxKm) {
-        this.maxKm = maxKm;
-    }
-
-    public double getWhPerKm() {
-        return whPerKm;
-    }
-
-    public void setWhPerKm(double whPerKm) {
-        this.whPerKm = whPerKm;
     }
 }
